@@ -7,9 +7,9 @@ score = 0                                                       #keeps track of 
 fruits = ['melon', 'orange', 'pomegranate', 'guava', 'bomb']    #entities in the game
 
 # initialize pygame and create window
-WIDTH = 800
-HEIGHT = 500
-FPS = 12                                                 #controls how often the gameDisplay should refresh. In our case, it will refresh every 1/12th second
+WIDTH = 950
+HEIGHT = 750
+FPS = 12                                                 #controls how often the gameDisplay should refresh
 pygame.init()
 pygame.display.set_caption('Fruit-Ninja Game')
 gameDisplay = pygame.display.set_mode((WIDTH, HEIGHT))   #setting game display size
@@ -36,7 +36,7 @@ def generate_random_fruits(fruit):
         'y' : 800,
         'speed_x': random.randint(-10,10),      #how fast the fruit should move in x direction. Controls the diagonal movement of fruits
         'speed_y': random.randint(-80, -60),    #control the speed of fruits in y-directionn ( UP )
-        'throw': False,                         #determines if the generated coordinate of the fruits is outside the gameDisplay or not. If outside, then it will be discarded
+        'throw': False,
         't': 0,                                 #manages the
         'hit': False,
     }
@@ -75,11 +75,11 @@ def draw_lives(display, x, y, lives, image) :
 # show game over display & front display
 def show_gameover_screen():
     gameDisplay.blit(background, (0,0))
-    draw_text(gameDisplay, "FRUIT NINJA!", 90, WIDTH / 2, HEIGHT / 4)
+    draw_text(gameDisplay, "Fruit NINJA ", 90, WIDTH / 2, HEIGHT / 4)
     if not game_over :
         draw_text(gameDisplay,"Score : " + str(score), 50, WIDTH / 2, HEIGHT /2)
 
-    draw_text(gameDisplay, "Press a key to begin!", 64, WIDTH / 2, HEIGHT * 3 / 4)
+    draw_text(gameDisplay, "Press any key to begin", 64, WIDTH / 2, HEIGHT * 3 / 4)
     pygame.display.flip()
     waiting = True
     while waiting:
@@ -121,11 +121,11 @@ while game_running :
             value['t'] += 1                         #increasing speed_y for next loop
 
             if value['y'] <= 800:
-                gameDisplay.blit(value['img'], (value['x'], value['y']))    #displaying the fruit inside screen dynamically
+                gameDisplay.blit(value['img'], (value['x'], value['y']))    #displaying the fruit inside screen
             else:
                 generate_random_fruits(key)
 
-            current_position = pygame.mouse.get_pos()   #gets the current coordinate (x, y) in pixels of the mouse
+            current_position = pygame.mouse.get_pos()   #gets the current coordinate in pixels of the mouse
 
             if not value['hit'] and current_position[0] > value['x'] and current_position[0] < value['x']+60 \
                     and current_position[1] > value['y'] and current_position[1] < value['y']+60:
@@ -157,7 +157,7 @@ while game_running :
             generate_random_fruits(key)
 
     pygame.display.update()
-    clock.tick(FPS)      # keep loop running at the right speed (manages the frame/second. The loop should update afer every 1/12th pf the sec
+    clock.tick(FPS)      # keep loop running at the right speed
                         
 
 pygame.quit()
